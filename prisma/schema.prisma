@@ -14,12 +14,12 @@ datasource db {
   url      = env("DB_URL")
 }
 
-model product {
+model Product {
   id          Int      @id @default(autoincrement())
-  name        String
+  name        String   @unique
   description String
   price       Float
   quantity    Int
-  createdAt   DateTime @default(now())
+  created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt @default(now())
 }
