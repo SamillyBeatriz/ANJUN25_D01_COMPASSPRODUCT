@@ -7,17 +7,15 @@ It supports product creation, retrieval, update, and deletion (CRUD), including 
 
 ## 🚀 Features
 
-- ⌛ Product creation
-
+- Product creation
+- ⌛ Product Search by ID
 ---
 
 ## 🛠️ Technologies Used
 
+- [TypeScript](https://www.typescriptlang.org/)
 - [Node.js](https://nodejs.org/)
 - [Express.js](https://expressjs.com/)
-- [TypeScript](https://www.typescriptlang.org/)
 - [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/)
 
 ---
-
-## ⚙️ How to Run the Project Locally
