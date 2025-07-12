@@ -10,8 +10,13 @@ const create = async (data: CreateProductInput) => {
   return productRepository.createProduct(data);
 };
 
+const findById = async (id: number) => {
+  return productRepository.findById(id);
+};
+
 export default {
-  create
+  create,
+  findById
 }
 
 
