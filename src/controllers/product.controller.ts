@@ -18,10 +18,11 @@ export const createProduct = async (req: Request, res: Response) => {
   } catch (error) {
     if (error instanceof DuplicateProductError) {
       res.status(409).json({ error: error.message });
+      return;
     }
 
     console.error('Error while creating product:', error);
-    sendError(res, 500, 'Failed to register product');
+    sendError(res, 500, 'an internal server error occurred');
   }
 };
 
@@ -43,7 +44,7 @@ export const getProductById = async (req: Request, res: Response) => {
     sendSuccess(res, 200, product);
   } catch (error) {
     console.error('Error while fetching product:', error);
-    sendError(res, 500, 'Failed to fetch product');
+    sendError(res, 500, 'an internal server error occurred');
   }
 };
 
@@ -61,7 +62,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
     sendSuccess(res, 200, { page, total: totalPages, count, data: products });
   } catch (error) {
     console.error('Error while fetching all products: ', error);
-    sendError(res, 500, 'Failed to fetch products');
+    sendError(res, 500, 'an internal server error occurred');
   }
 };
 
@@ -92,7 +93,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     res.status(204).send();
   } catch (error) {
     console.error('Error while updating product:', error);
-    sendError(res, 500, 'Failed to update product');
+    sendError(res, 500, 'an internal server error occurred');
   }
 };
 
@@ -116,7 +117,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
     }
 
     console.error('Error while deleting product:', error);
-    sendError(res, 500, 'Failed to delete product');
+    sendError(res, 500, 'an internal server error occurred');
     return;
   }
 };
