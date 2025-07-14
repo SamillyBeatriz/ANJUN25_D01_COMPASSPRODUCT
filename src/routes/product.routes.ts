@@ -6,8 +6,8 @@ const router = Router();
 
 router.get('/api/products', getAllProducts);
 router.post('/api/products', validateProductInput, createProduct);
-router.delete('/api/products/:id', deleteProduct);
-router.get('/api/products/:id', getProductById);
+router.delete('/api/product/:id', deleteProduct);
+router.get('/api/product/:id', getProductById);
 router.patch('/api/products/:id', validateProductInput, updateProduct);
 
 export default router;
