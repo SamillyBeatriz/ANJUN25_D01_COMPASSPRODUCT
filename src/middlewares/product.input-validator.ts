@@ -28,7 +28,7 @@ export const validateProductInput = (
   checkField(quantity, 'quantity', 'number', true);
 
   if (errors.length > 0) {
-    res.status(400).json({ errors });
+    return res.status(400).json({ errors });
   }
 
   next();

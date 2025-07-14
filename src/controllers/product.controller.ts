@@ -18,7 +18,6 @@ export const createProduct = async (req: Request, res: Response) => {
   } catch (error) {
     if (error instanceof DuplicateProductError) {
       res.status(409).json({ error: error.message });
-      return;
     }
 
     console.error('Error while creating product:', error);
@@ -72,7 +71,6 @@ export const updateProduct = async (req: Request, res: Response) => {
 
   if (!id || isNaN(id) || id <= 0) {
     sendError(res, 400, 'Invalid product ID');
-    return;
   }
 
   try {
@@ -103,21 +101,17 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
   if (isNaN(numericId) || numericId <= 0) {
     sendError(res, 400, 'Invalid product ID');
-    return;
   }
 
   try {
     await productService.deleteById(numericId);
     res.status(204).send();
-    return;
   } catch (error) {
     if ((error as Error).message === 'product not found') {
       sendError(res, 404, 'product not found');
-      return;
     }
 
     console.error('Error while deleting product:', error);
     sendError(res, 500, 'an internal server error occurred');
-    return;
   }
 };

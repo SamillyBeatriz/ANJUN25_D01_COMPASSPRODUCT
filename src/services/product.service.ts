@@ -23,19 +23,19 @@ const count = async () => {
 };
 
 const update = async (id: number, data: UpdateProductInput) => {
-  return await productRepository.updateProduct(id, data);
+  return productRepository.updateProduct(id, data);
 };
 
 const findByName = async (name: string) => {
-  return await productRepository.findByName(name);
+  return productRepository.findByName(name);
 };
 
 const deleteById = async (id: number): Promise<void> => {
-  const product = await productRepository.findById(id);
+  const product = productRepository.findById(id);
   if (!product) {
     throw new Error('product not found');
   }
-  await productRepository.deleteById(id);
+   productRepository.deleteById(id);
 };
 
 export default {
