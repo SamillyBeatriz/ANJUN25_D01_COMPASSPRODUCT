@@ -11,3 +11,8 @@ export type CreateProductInput = {
   price: number;
   quantity: number;
 };
+
+export type PaginationParams = {
+  skip: number;
+  take: number;
+};

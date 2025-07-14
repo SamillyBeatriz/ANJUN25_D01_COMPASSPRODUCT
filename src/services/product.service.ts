@@ -14,9 +14,17 @@ const findById = async (id: number) => {
   return productRepository.findById(id);
 };
 
+const findAll = async ({ skip, take }: { skip: number; take: number }) => {
+  return productRepository.findAll({ skip, take });
+};
+
+const count = async () => {
+  return productRepository.count();
+};
+
 export default {
   create,
-  findById
-}
-
-
+  findById,
+  findAll,
+  count,
+};

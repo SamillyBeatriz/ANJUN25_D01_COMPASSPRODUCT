@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import productService from '../services/product.service';
 import { DuplicateProductError } from '../exceptions/product.duplicate-exception';
 import { sendError, sendSuccess } from '../utils/response';
+import { getPagination } from '../utils/pagination';
 
 export const createProduct = async (req: Request, res: Response) => {
   const { name, description, price, quantity } = req.body;
@@ -24,10 +25,7 @@ export const createProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const getProductById = async (
-  req: Request,
-  res: Response,
-) => {
+export const getProductById = async (req: Request, res: Response) => {
   const { id } = req.params;
   const numericId = Number(id);
 
@@ -46,5 +44,23 @@ export const getProductById = async (
   } catch (error) {
     console.error('Error while fetching product:', error);
     sendError(res, 500, 'Failed to fetch product');
+  }
+};
+
+export const getAllProducts = async (req: Request, res: Response) => {
+  const { page, limit, skip } = getPagination(req.query, 5);
+
+  try {
+    const [products, count] = await Promise.all([
+      productService.findAll({ skip, take: limit }),
+      productService.count(),
+    ]);
+
+    const totalPages = Math.ceil(count / limit);
+
+    sendSuccess(res, 200, { page, total: totalPages, count, data: products });
+  } catch (error) {
+    console.error('Error while fetching all products: ', error);
+    sendError(res, 500, 'Failed to fetch products');
   }
 };

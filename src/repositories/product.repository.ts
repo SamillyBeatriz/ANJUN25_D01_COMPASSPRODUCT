@@ -1,6 +1,6 @@
 import prisma from '../prisma/client';
 import { Product } from '../generated/prisma';
-import { CreateProductInput } from '../dtos/product.dtos';
+import { CreateProductInput, PaginationParams } from '../dtos/product.dtos';
 
 export const createProduct = async (
   data: CreateProductInput
@@ -16,11 +16,37 @@ export const findByName = async (
   });
 };
 
-export const findById = async (id: number): Promise<Product | null> => {
+export const findById = async (
+  id: number
+): Promise<Product | null> => {
   return prisma.product.findUnique({
     where: { id },
   });
 };
 
+export const findAll = async ({
+  skip,
+  take,
+}: PaginationParams): Promise<Product[]> => {
+  return prisma.product.findMany({
+    skip,
+    take,
+    orderBy: {
+      id: 'asc',
+    },
+  });
+};
 
+export const count = async (
+): Promise<number> => {
+  return prisma.product.count();
+};
+
+export default {
+  createProduct,
+  findById,
+  findByName,
+  findAll,
+  count
+}
 
