@@ -95,3 +95,28 @@ export const updateProduct = async (req: Request, res: Response) => {
     sendError(res, 500, 'Failed to update product');
   }
 };
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const numericId = Number(id);
+
+  if (isNaN(numericId) || numericId <= 0) {
+    sendError(res, 400, 'Invalid product ID');
+    return;
+  }
+
+  try {
+    await productService.deleteById(numericId);
+    res.status(204).send();
+    return;
+  } catch (error) {
+    if ((error as Error).message === 'product not found') {
+      sendError(res, 404, 'product not found');
+      return;
+    }
+
+    console.error('Error while deleting product:', error);
+    sendError(res, 500, 'Failed to delete product');
+    return;
+  }
+};

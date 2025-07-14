@@ -30,11 +30,20 @@ const findByName = async (name: string) => {
   return await productRepository.findByName(name);
 };
 
+const deleteById = async (id: number): Promise<void> => {
+  const product = await productRepository.findById(id);
+  if (!product) {
+    throw new Error('product not found');
+  }
+  await productRepository.deleteById(id);
+};
+
 export default {
   create,
   findById,
   findByName,
   findAll,
   count,
-  update
+  update,
+  deleteById
 };

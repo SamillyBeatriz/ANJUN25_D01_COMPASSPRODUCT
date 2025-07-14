@@ -49,6 +49,11 @@ export const updateProduct = async (id: number, data: UpdateProductInput) => {
   });
 };
 
+export const deleteById = async (id: number) => {
+  return await prisma.product.delete({
+    where: { id },
+  });
+};
 
 export default {
   createProduct,
@@ -56,6 +61,7 @@ export default {
   findByName,
   findAll,
   count,
-  updateProduct
+  updateProduct,
+  deleteById
 }
 
