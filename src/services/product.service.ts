@@ -1,6 +1,6 @@
 import * as productRepository from '../repositories/product.repository';
 import { DuplicateProductError } from '../exceptions/product.duplicate-exception';
-import { CreateProductInput } from '../dtos/product.dtos';
+import { CreateProductInput, UpdateProductInput } from '../dtos/product.dtos';
 
 const create = async (data: CreateProductInput) => {
   const existingProduct = await productRepository.findByName(data.name);
@@ -22,9 +22,19 @@ const count = async () => {
   return productRepository.count();
 };
 
+const update = async (id: number, data: UpdateProductInput) => {
+  return await productRepository.updateProduct(id, data);
+};
+
+const findByName = async (name: string) => {
+  return await productRepository.findByName(name);
+};
+
 export default {
   create,
   findById,
+  findByName,
   findAll,
   count,
+  update
 };
