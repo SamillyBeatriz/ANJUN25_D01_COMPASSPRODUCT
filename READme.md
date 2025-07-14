@@ -10,6 +10,7 @@ It supports product creation, retrieval, update, and deletion (CRUD), including 
 - Create product
 - Get product by ID
 - List all products
+- Updade product
 ---
 
 ## 🛠️ Technologies Used
