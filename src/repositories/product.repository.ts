@@ -1,6 +1,6 @@
 import prisma from '../prisma/client';
 import { Product } from '../generated/prisma';
-import { CreateProductInput, PaginationParams } from '../dtos/product.dtos';
+import { CreateProductInput, PaginationParams, UpdateProductInput } from '../dtos/product.dtos';
 
 export const createProduct = async (
   data: CreateProductInput
@@ -42,11 +42,20 @@ export const count = async (
   return prisma.product.count();
 };
 
+export const updateProduct = async (id: number, data: UpdateProductInput) => {
+  return await prisma.product.update({
+    where: { id },
+    data,
+  });
+};
+
+
 export default {
   createProduct,
   findById,
   findByName,
   findAll,
-  count
+  count,
+  updateProduct
 }
 

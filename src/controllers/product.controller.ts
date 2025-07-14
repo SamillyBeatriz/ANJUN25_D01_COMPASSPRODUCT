@@ -64,3 +64,34 @@ export const getAllProducts = async (req: Request, res: Response) => {
     sendError(res, 500, 'Failed to fetch products');
   }
 };
+
+export const updateProduct = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const { name, description, price, quantity } = req.body;
+
+  if (!id || isNaN(id) || id <= 0) {
+    sendError(res, 400, 'Invalid product ID');
+    return;
+  }
+
+  try {
+    const existingProduct = await productService.findById(id);
+    if (!existingProduct) {
+      sendError(res, 404, 'Product not found');
+      return;
+    }
+
+    if (name && name !== existingProduct.name) {
+      const productWithSameName = await productService.findByName(name);
+      if (productWithSameName) {
+        sendError(res, 409, 'name already registered');
+      }
+    }
+
+    await productService.update(id, { name, description, price, quantity });
+    res.status(204).send();
+  } catch (error) {
+    console.error('Error while updating product:', error);
+    sendError(res, 500, 'Failed to update product');
+  }
+};
